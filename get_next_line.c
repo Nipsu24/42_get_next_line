@@ -6,7 +6,7 @@
 /*   By: mmeier <mmeier@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 11:41:20 by mmeier            #+#    #+#             */
-/*   Updated: 2024/01/09 14:40:18 by mmeier           ###   ########.fr       */
+/*   Updated: 2024/01/15 11:45:16 by mmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,40 +15,46 @@
 
 char	*get_next_line(int fd)
 {
-	static char	*txt = "\0";
+	static char	*txt;
 	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (0);
-	txt = ft_read(fd, txt);
-	if (txt == 0)
-		return (0);
+		return (NULL);
+	if (!ft_strchr(txt, '\n'))
+		txt = ft_read(fd, txt);
+	if (!txt)
+		return (NULL);
 	line = ft_getline(txt);
+	if (!line)
+		return (ft_free(&txt));
 	txt = ft_remainder(txt);
 	return (line);
+	
 }
 
 char	*ft_read(int fd, char *str)
 {
-	char	*buf;
+	char	buf[BUFFER_SIZE + 1];
 	int		count;
 
 	count = 1;
-	buf = (char *) malloc ((BUFFER_SIZE + 1) * sizeof(char));
-	if (buf == 0)
-		return (NULL);
-	while (!ft_strchr(str, '\n') && count > 0)
+	while (count > 0)
 	{
 		count = read (fd, buf, BUFFER_SIZE);
-		if (count == -1)
-		{
-			free (buf);
+		if (!str && count == 0)
 			return (NULL);
-		}
+		if (count == -1)
+			return(ft_free(&str));
 		buf[count] = '\0';
-		str = ft_strjoin(str, buf);
+		if (!str)
+			str = ft_strdup(buf);
+		else
+			str = ft_gnl_strjoin(str, buf);
+		if (!str)
+			return(ft_free(&str));
+		if (ft_strchr(str, '\n'))
+			break ;
 	}
-	free (buf);
 	return (str);
 }
 
@@ -62,21 +68,11 @@ char	*ft_getline(char *str)
 		return (NULL);
 	while (str[i] && str[i] != '\n')
 		i++;
-	line = (char *) malloc ((i + 2) * sizeof(char));
-	if (!line)
-		return (NULL);
-	i = 0;
-	while (str[i] && str[i] != '\n')
-	{
-		line[i] = str[i];
-		i++;
-	}
 	if (str[i] == '\n')
-	{
-		line[i] = str[i];
 		i++;
-	}
-	line[i] = '\0';
+	line = ft_substr(str, 0, i);
+	if (!line)
+		return(ft_free(&str));
 	return (line);
 }
 
@@ -90,20 +86,27 @@ char	*ft_remainder(char *str)
 	j = 0;
 	while (str[i] && str[i] != '\n')
 		i++;
-	if (str[i] == 0)
-	{
-		free (str);
-		return (NULL);
-	}
+	if (!str[i])
+		return (ft_free(&str));
 	remainder = (char *) malloc ((ft_strlen(str) - i + 1) * sizeof(char));
 	if (!remainder)
-		return (NULL);
+		return(ft_free(&str));
 	i++;
 	while (str[i] != '\0')
 	{
 		remainder[j++] = str[i++];
 	}
 	remainder[j] = '\0';
-	free (str);
+	ft_free(&str);
 	return (remainder);
+}
+
+char	*ft_free(char **str)
+{
+	if (*str)
+	{
+		free(*str);
+		*str = NULL;
+	}
+	return (NULL);
 }

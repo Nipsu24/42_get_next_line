@@ -6,12 +6,13 @@
 /*   By: mmeier <mmeier@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 11:47:22 by mmeier            #+#    #+#             */
-/*   Updated: 2024/01/15 11:53:17 by mmeier           ###   ########.fr       */
+/*   Updated: 2024/01/16 16:16:07 by mmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <stdio.h>
+#include <unistd.h>
 
 size_t	ft_strlen(const	char *s)
 {
@@ -50,7 +51,7 @@ char	*ft_gnl_strjoin(char *s1, char *s2)
 	j = 0;
 	ptr = (char *) malloc ((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
 	if (ptr == 0)
-		return(ft_free(&s1));
+		return (ft_free(&s1));
 	while (s1[i] != '\0')
 	{
 		ptr[i] = s1[i];
@@ -86,29 +87,12 @@ char	*ft_strdup(const char *s1)
 	return (ptr);
 }
 
-void	*ft_memcpy(void *dst, const void *src, size_t n)
-{
-	char		*dstptr;
-	const char	*srcptr;
-	size_t		i;
-
-	dstptr = dst;
-	srcptr = src;
-	i = 0;
-	if (src == '\0' && dst == '\0')
-		return (0);
-	while (i < n)
-	{
-		dstptr[i] = srcptr[i];
-		i++;
-	}
-	return (dst);
-}
-
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_substr(char *s, unsigned int start, size_t len)
 {
 	char	*ptr;
+	int		i;
 
+	i = 0;
 	if (!s)
 		return (0);
 	if (start + len > (ft_strlen(s)))
@@ -118,27 +102,16 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	ptr = (char *) malloc ((len + 1) * sizeof(char));
 	if (ptr == 0)
 		return (NULL);
-	ft_memcpy(ptr, &s[start], len);
-	ptr[len] = '\0';
-	return (ptr);
-}
-
-char	*ft_strdup(const char *s1)
-{
-	char	*ptr;
-	int		len;
-	int		i;
-
-	i = 0;
-	len = ft_strlen(s1);
-	ptr = (char *) malloc ((len + 1) * sizeof(char));
-	if (ptr == 0)
-		return (NULL);
-	while (i < len)
+	if (len == 0)
+		ptr[len] = '\0';
+	while (len > 0)
 	{
-		ptr[i] = s1[i];
+		ptr[i] = s[start];
+		len--;
+		start++;
 		i++;
 	}
-	ptr[len] = '\0';
+	//ft_free(&s);
+	ptr[i] = '\0';
 	return (ptr);
 }

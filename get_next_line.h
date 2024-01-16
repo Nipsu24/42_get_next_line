@@ -6,7 +6,7 @@
 /*   By: mmeier <mmeier@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 11:42:58 by mmeier            #+#    #+#             */
-/*   Updated: 2024/01/15 11:35:33 by mmeier           ###   ########.fr       */
+/*   Updated: 2024/01/16 16:15:01 by mmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,5 @@ char	*ft_getline(char *str);
 char	*ft_remainder(char *str);
 char	*ft_free(char **str);
 char	*ft_strdup(const char *s1);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
-void	*ft_memcpy(void *dst, const void *src, size_t n);
+char	*ft_substr(char *s, unsigned int start, size_t len);
 #endif

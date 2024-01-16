@@ -6,7 +6,7 @@
 /*   By: mmeier <mmeier@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 11:41:20 by mmeier            #+#    #+#             */
-/*   Updated: 2024/01/15 11:45:16 by mmeier           ###   ########.fr       */
+/*   Updated: 2024/01/16 16:29:01 by mmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ char	*get_next_line(int fd)
 		return (ft_free(&txt));
 	txt = ft_remainder(txt);
 	return (line);
-	
 }
 
 char	*ft_read(int fd, char *str)
@@ -44,14 +43,14 @@ char	*ft_read(int fd, char *str)
 		if (!str && count == 0)
 			return (NULL);
 		if (count == -1)
-			return(ft_free(&str));
+			return (ft_free(&str));
 		buf[count] = '\0';
 		if (!str)
 			str = ft_strdup(buf);
 		else
 			str = ft_gnl_strjoin(str, buf);
 		if (!str)
-			return(ft_free(&str));
+			return (ft_free(&str));
 		if (ft_strchr(str, '\n'))
 			break ;
 	}
@@ -71,8 +70,10 @@ char	*ft_getline(char *str)
 	if (str[i] == '\n')
 		i++;
 	line = ft_substr(str, 0, i);
+	if (line[0] == '\0')
+		return (ft_free(&line));
 	if (!line)
-		return(ft_free(&str));
+		return (ft_free(&str));
 	return (line);
 }
 
@@ -90,7 +91,7 @@ char	*ft_remainder(char *str)
 		return (ft_free(&str));
 	remainder = (char *) malloc ((ft_strlen(str) - i + 1) * sizeof(char));
 	if (!remainder)
-		return(ft_free(&str));
+		return (ft_free(&str));
 	i++;
 	while (str[i] != '\0')
 	{

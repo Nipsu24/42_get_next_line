@@ -6,7 +6,7 @@
 /*   By: mmeier <mmeier@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 11:47:22 by mmeier            #+#    #+#             */
-/*   Updated: 2024/01/16 16:16:07 by mmeier           ###   ########.fr       */
+/*   Updated: 2024/01/16 16:31:45 by mmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ char	*ft_strdup(const char *s1)
 	return (ptr);
 }
 
-char	*ft_substr(char *s, unsigned int start, size_t len)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	char	*ptr;
 	int		i;
@@ -111,7 +111,6 @@ char	*ft_substr(char *s, unsigned int start, size_t len)
 		start++;
 		i++;
 	}
-	//ft_free(&s);
 	ptr[i] = '\0';
 	return (ptr);
 }

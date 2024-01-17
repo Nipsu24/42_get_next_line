@@ -6,7 +6,7 @@
 /*   By: mmeier <mmeier@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 11:41:20 by mmeier            #+#    #+#             */
-/*   Updated: 2024/01/16 16:29:01 by mmeier           ###   ########.fr       */
+/*   Updated: 2024/01/17 12:23:14 by mmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,10 @@ char	*ft_getline(char *str)
 	if (str[i] == '\n')
 		i++;
 	line = ft_substr(str, 0, i);
+	if (!line)
+		return (NULL);
 	if (line[0] == '\0')
 		return (ft_free(&line));
-	if (!line)
-		return (ft_free(&str));
 	return (line);
 }
 

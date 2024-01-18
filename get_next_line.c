@@ -6,7 +6,7 @@
 /*   By: mmeier <mmeier@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 11:41:20 by mmeier            #+#    #+#             */
-/*   Updated: 2024/01/17 14:26:59 by mmeier           ###   ########.fr       */
+/*   Updated: 2024/01/18 12:05:42 by mmeier           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	*ft_read(int fd, char *str)
 	{
 		count = read (fd, buf, BUFFER_SIZE);
 		if (!str && count == 0)
-			return (NULL);
+			return (ft_free(&str));
 		if (count == -1)
 			return (ft_free(&str));
 		buf[count] = '\0';
@@ -63,14 +63,14 @@ char	*ft_getline(char *str)
 
 	i = 0;
 	if (str == 0)
-		return (NULL);
+		return (ft_free(&str));
 	while (str[i] && str[i] != '\n')
 		i++;
 	if (str[i] == '\n')
 		i++;
 	line = ft_substr(str, 0, i);
 	if (!line)
-		return (NULL);
+		return (ft_free(&line));
 	if (line[0] == '\0')
 		return (ft_free(&line));
 	return (line);
@@ -91,7 +91,8 @@ char	*ft_remainder(char *str)
 	remainder = (char *) malloc ((ft_strlen(str) - i + 1) * sizeof(char));
 	if (!remainder)
 		return (ft_free(&str));
-	i++;
+	if (str[i] == '\n')
+		i++;
 	while (str[i] != '\0')
 	{
 		remainder[j++] = str[i++];

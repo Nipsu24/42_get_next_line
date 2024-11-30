@@ -47,7 +47,7 @@ To use the function, include the header path in your main.c file (given all file
 #include "get_next_line.h"
 ```
 Also include a file (e.g. test.txt) with some content in the folder.
-Example of main.c (reads first 10 lines of the given document(test.txt)):
+Example of main.c (reads first 10 lines of the given test.txt file):
 ```
 int	main(void)
 {

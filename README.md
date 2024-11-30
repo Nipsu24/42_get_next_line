@@ -1,4 +1,4 @@
-<h1 align="center">getNextLine</h1>
+<h1 align="center">get_next_line</h1>
 
 > Hive Helsinki (School 42) third curriculum project (Rank01)
 

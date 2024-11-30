@@ -32,7 +32,7 @@ with `<fcntl.h>` and `<stdio.h>`
 
 ## Instructions
 
-### 1. Compiling the printf library
+### 1. Compiling a program with the function
 
 To compile a program with the function, create a main.c file (see example in 2.)  within the repo folder and run:
 
